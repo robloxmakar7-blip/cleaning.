@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ваш Клининг Ульяновск | Калькулятор уборки</title>
+    <meta name="description" content="Рассчитайте стоимость профессиональной уборки в Ульяновске за 1 минуту. Закажите чистоту онлайн.">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, system-ui, sans-serif;
+            /* НЕ СИНИЙ! Светлый фон с фото уборки */
+            background: #f4f7f6 url('https://images.unsplash.com/photo-1581578731548-c64695cc6954?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding-bottom: 110px;
+        }
+
+        .container { padding: 15px; max-width: 480px; margin: 0 auto; }
+
+        header { text-align: center; padding: 25px 0; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+        .logo-main { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; margin: 0; text-transform: uppercase; }
+        .city-tag { background: rgba(0, 122, 255, 0.9); display: inline-block; padding: 3px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; }
+
+        /* Эффект матового стекла на светлом фоне */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px) saturate(140%);
+            -webkit-backdrop-filter: blur(15px) saturate(140%);
+            border-radius: 26px;
+            padding: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        h2 { font-size: 0.9rem; margin: 0 0 15px; color: #555; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
+
+        .line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        
+        input, select { 
+            padding: 11px; border-radius: 14px; border: 1px solid #ddd; 
+            font-size: 1rem; font-weight: 600; background: white; outline: none; color: #000;
+        }
+        .num-in { width: 70px; text-align: center; background: #f9f9f9; }
+
+        /* Кнопки вызова */
+        .btn {
+            display: block; width: 100%; padding: 17px 0; border-radius: 20px;
+            text-align: center; text-decoration: none; font-weight: 800; font-size: 1.2rem;
+            margin-bottom: 12px; transition: 0.2s;
+        }
+        .primary-btn { background: #007AFF; color: white; box-shadow: 0 5px 15px rgba(0,122,255,0.25); }
+        .secondary-btn { background: #34C759; color: white; box-shadow: 0 5px 15px rgba(52,199,89,0.25); }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
+
+        /* Итоговая панель внизу */
+        .footer-total {
+            position: fixed; bottom: 25px; left: 15px; right: 15px;
+            background: #fff; border-radius: 24px; padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 2px solid #007AFF;
+        }
+        .total-label { font-weight: 800; color: #444; }
+        .price { font-size: 1.8rem; font-weight: 900; color: #007AFF; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="city-tag">УЛЬЯНОВСК</div>
+    <h1 class="logo-main">ВАШ КЛИНИНГ</h1>
+</header>
+
+<div class="container">
+    <div class="glass-panel">
+        <h2>Выберите услугу</h2>
+        <select id="type" onchange="calc()" style="width: 100%; margin-bottom: 15px;">
+            <option value="90">Влажная (90 ₽/м²)</option>
+            <option value="150">Генеральная (150 ₽/м²)</option>
+            <option value="200">После ремонта (200 ₽/м²)</option>
+        </select>
+        <div style="font-size: 0.8rem; font-weight: bold; color: #777; margin-bottom: 5px;">УКАЖИТЕ ПЛОЩАДЬ (м²)</div>
+        <input type="number" id="sq" value="40" oninput="calc()" style="width: 100%;">
+    </div>
+
+    <div class="glass-panel">
+        <h2>Дополнительные услуги</h2>
+        <div class="line"><span>Окно (2 створки)</span><input type="number" class="q num-in" data-p="650" value="0" oninput="calc()"></div>
+        <div class="line"><span>Окно (3 створки)</span><input type="number" class="q num-in" data-p="750" value="0" oninput="calc()"></div>
+        <div class="line"><span>Балкон стандартный</span><input type="number" class="q num-in" data-p="1500" value="0" oninput="calc()"></div>
+        <div class="line"><span>Холодильник (внутри)</span><input type="number" class="q num-in" data-p="1000" value="0" oninput="calc()"></div>
+        <div class="line"><span>Духовка (внутри)</span><input type="number" class="q num-in" data-p="1200" value="0" oninput="calc()"></div>
+    </div>
+
+    <div class="glass-panel">
+        <h2>Связаться с нами:</h2>
+        <a href="tel:89084753036" class="btn primary-btn">8 (908) 475-30-36</a>
+        <a href="tel:89041913179" class="btn secondary-btn">8 (904) 191-31-79</a>
+    </div>
+</div>
+
+<div class="footer-total">
+    <div class="total-label">ИТОГО:</div>
+    <div class="price"><span id="res">3 600</span> ₽</div>
+</div>
+
+<script>
+function calc() {
+    // Получаем тип уборки и площадь
+    const t = parseFloat(document.getElementById('type').value);
+    const s = parseFloat(document.getElementById('sq').value) || 0;
+    
+    // Считаем базу
+    let total = t * s;
+    
+    // Добавляем допы
+    document.querySelectorAll('.q').forEach(i => {
+        total += (Math.max(0, parseInt(i.value) || 0)) * parseInt(i.getAttribute('data-p'));
+    });
+    
+    // Выводим результат
+    document.getElementById('res').innerText = Math.round(total).toLocaleString('ru-RU');
+}
+// Первый запуск для расчета по умолчанию
+calc();
+</script>
+
+</body>
+</html>
+
