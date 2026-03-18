@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ваш Клининг Ульяновск | Калькулятор уборки</title>
+    <title>Ваш Клининг Ульяновск | Калькулятор</title>
     <style>
         body {
             margin: 0;
@@ -53,8 +53,13 @@
         .total-label { font-weight: 800; color: #444; }
         .price { font-size: 1.8rem; font-weight: 900; color: #007AFF; }
         
-        .contact-box { text-align: center; margin-top: 10px; font-size: 0.9rem; }
-        .contact-box a { color: #007AFF; text-decoration: none; font-weight: bold; margin: 0 10px; }
+        .contact-box { text-align: center; margin-top: 20px; margin-bottom: 10px; font-size: 0.9rem; }
+        .contact-btn {
+            display: block; width: 100%; max-width: 300px; margin: 10px auto;
+            padding: 15px; border-radius: 16px; color: white;
+            text-decoration: none; font-weight: bold; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -68,27 +73,30 @@
     <div class="glass-panel">
         <h2>Выберите услугу</h2>
         <select id="type" onchange="calc()" style="width: 100%; margin-bottom: 15px;">
-            <option value="70">Влажная уборка (70₽/м²)</option>
-            <option value="130">Генеральная уборка (130₽/м²)</option>
+            <option value="70">Влажная (70₽/м²)</option>
+            <option value="130">Генеральная (130₽/м²)</option>
             <option value="200">После ремонта (200₽/м²)</option>
         </select>
 
         <div class="line">
-            <span>Площадь помещения</span>
+            <span>Укажите площадь (м²)</span>
             <input type="number" id="area" class="num-in" value="40" oninput="calc()">
         </div>
     </div>
 
     <div class="glass-panel">
-        <h2>Дополнительно</h2>
-        <div class="line"><span>Холодильник (+500₽)</span><input type="checkbox" id="f" onchange="calc()"></div>
-        <div class="line"><span>Духовка (+500₽)</span><input type="checkbox" id="o" onchange="calc()"></div>
-        <div class="line"><span>Мытье окон (+400₽/шт)</span><input type="checkbox" id="w" onchange="calc()"></div>
+        <h2>Дополнительные услуги</h2>
+        <div class="line"><span>Окно (2 створки) (+250₽)</span><input type="number" id="win2" class="num-in" value="0" min="0" oninput="calc()"></div>
+        <div class="line"><span>Окно (3 створки) (+350₽)</span><input type="number" id="win3" class="num-in" value="0" min="0" oninput="calc()"></div>
+        <div class="line"><span>Балкон станд. (+800₽)</span><input type="number" id="bal" class="num-in" value="0" min="0" oninput="calc()"></div>
+        <div class="line"><span>Холодильник (+500₽)</span><input type="number" id="fridge" class="num-in" value="0" min="0" oninput="calc()"></div>
+        <div class="line"><span>Духовка (+500₽)</span><input type="number" id="oven" class="num-in" value="0" min="0" oninput="calc()"></div>
     </div>
     
     <div class="contact-box">
-        <a href="tel:+79041852445">📞 Позвонить 1</a>
-        <a href="tel:+79378850125">📞 Позвонить 2</a>
+        <h2>СВЯЗАТЬСЯ С НАМИ:</h2>
+        <a href="tel:+79084753036" class="contact-btn" style="background: #007AFF;">8 (908) 475-30-36</a>
+        <a href="tel:+79041913179" class="contact-btn" style="background: #28CD41;">8 (904) 191-31-79</a>
     </div>
 </div>
 
@@ -102,9 +110,14 @@
         const t = parseFloat(document.getElementById('type').value);
         const a = parseFloat(document.getElementById('area').value) || 0;
         let s = t * a;
-        if(document.getElementById('f').checked) s += 500;
-        if(document.getElementById('o').checked) s += 500;
-        if(document.getElementById('w').checked) s += 400;
+        
+        // Услуги с вводом количества
+        s += (parseInt(document.getElementById('win2').value) || 0) * 250;
+        s += (parseInt(document.getElementById('win3').value) || 0) * 350;
+        s += (parseInt(document.getElementById('bal').value) || 0) * 800;
+        s += (parseInt(document.getElementById('fridge').value) || 0) * 500;
+        s += (parseInt(document.getElementById('oven').value) || 0) * 500;
+        
         document.getElementById('res').innerText = Math.round(s);
     }
     calc();
