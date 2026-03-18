@@ -3,60 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ваш Клининг Ульяновск</title>
+    <title>Ваш Клининг Ульяновск | Калькулятор уборки</title>
     <style>
-        :root { --primary: #007AFF; --bg: #F2F2F7; --card: #FFFFFF; --text: #1C1C1E; }
-        body { font-family: -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; justify-content: center; padding-bottom: 120px; }
-        .container { background: var(--card); padding: 24px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 400px; }
-        h1 { font-size: 24px; text-align: center; margin-bottom: 5px; color: var(--primary); }
-        .city { text-align: center; font-size: 14px; color: #8E8E93; margin-bottom: 25px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 15px; }
-        select, input { width: 100%; padding: 14px; border: 1px solid #D1D1D6; border-radius: 12px; font-size: 16px; margin-bottom: 20px; background: #F9F9FB; }
-        .extra-item { display: flex; align-items: center; justify-content: space-between; background: #F2F2F7; padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; }
-        .extra-item input { width: 22px; height: 22px; margin: 0; }
-        .footer-price { position: fixed; bottom: 20px; left: 20px; right: 20px; background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 -5px 25px rgba(0,0,0,0.1); border: 2px solid var(--primary); text-align: center; }
-        .total-val { font-size: 28px; font-weight: 800; color: var(--primary); }
-        .contact-link { display: block; margin-top: 10px; color: #1C1C1E; text-decoration: none; font-weight: 600; font-size: 14px; }
+        body {
+            margin: 0;
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f4f7f6 url('https://images.unsplash.com/photo-1581578731548-c64695cc6954?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding-bottom: 110px;
+        }
+
+        .container { padding: 15px; max-width: 480px; margin: 0 auto; }
+
+        header { text-align: center; padding: 25px 0; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+        .logo-main { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; margin: 0; text-transform: uppercase; }
+        .city-tag { background: rgba(0, 122, 255, 0.9); display: inline-block; padding: 3px 14px; border-radius: 20px; font-size: 0.8rem; margin-top: 5px; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px) saturate(140%);
+            -webkit-backdrop-filter: blur(15px) saturate(140%);
+            border-radius: 26px;
+            padding: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        h2 { font-size: 0.9rem; margin: 0 0 15px; color: #555; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        .line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+
+        input, select {
+            padding: 11px; border-radius: 14px; border: 1px solid #ddd;
+            font-size: 1rem; font-weight: 600; background: white; outline: none; color: #000;
+        }
+        .num-in { width: 70px; text-align: center; background: #F9F9F9; }
+
+        .footer-total {
+            position: fixed; bottom: 25px; left: 15px; right: 15px;
+            background: #fff; border-radius: 24px; padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 2px solid #007AFF;
+            z-index: 1000;
+        }
+
+        .total-label { font-weight: 800; color: #444; }
+        .price { font-size: 1.8rem; font-weight: 900; color: #007AFF; }
+        
+        .contact-box { text-align: center; margin-top: 10px; font-size: 0.9rem; }
+        .contact-box a { color: #007AFF; text-decoration: none; font-weight: bold; margin: 0 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>ВАШ КЛИНИНГ 🧼</h1>
-    <div class="city">Ульяновск</div>
+    <header>
+        <div class="city-tag">УЛЬЯНОВСК</div>
+        <h1 class="logo-main">ВАШ КЛИНИНГ</h1>
+    </header>
 
-    <label>Тип уборки:</label>
-    <select id="type" onchange="calc()">
-        <option value="79">Влажная (79₽/м²)</option>
-        <option value="130">Генеральная (130₽/м²)</option>
-    </select>
+    <div class="glass-panel">
+        <h2>Выберите услугу</h2>
+        <select id="type" onchange="calc()" style="width: 100%; margin-bottom: 15px;">
+            <option value="70">Влажная уборка (70₽/м²)</option>
+            <option value="130">Генеральная уборка (130₽/м²)</option>
+            <option value="200">После ремонта (200₽/м²)</option>
+        </select>
 
-    <label>Площадь квартиры (м²):</label>
-    <input type="number" id="area" value="40" oninput="calc()">
+        <div class="line">
+            <span>Площадь помещения</span>
+            <input type="number" id="area" class="num-in" value="40" oninput="calc()">
+        </div>
+    </div>
 
-    <label>Дополнительно:</label>
-    <div class="extra-item"><span>Холодильник (+500₽)</span><input type="checkbox" id="f" onchange="calc()"></div>
-    <div class="extra-item"><span>Духовка (+500₽)</span><input type="checkbox" id="o" onchange="calc()"></div>
-    <div class="extra-item"><span>Окна (+400₽/шт)</span><input type="checkbox" id="w" onchange="calc()"></div>
+    <div class="glass-panel">
+        <h2>Дополнительно</h2>
+        <div class="line"><span>Холодильник (+500₽)</span><input type="checkbox" id="f" onchange="calc()"></div>
+        <div class="line"><span>Духовка (+500₽)</span><input type="checkbox" id="o" onchange="calc()"></div>
+        <div class="line"><span>Мытье окон (+400₽/шт)</span><input type="checkbox" id="w" onchange="calc()"></div>
+    </div>
+    
+    <div class="contact-box">
+        <a href="tel:+79041852445">📞 Позвонить 1</a>
+        <a href="tel:+79378850125">📞 Позвонить 2</a>
+    </div>
 </div>
 
-<div class="footer-price">
-    <div style="font-size: 14px; color: #666;">Итоговая стоимость:</div>
-    <div class="total-val"><span id="res">3160</span> ₽</div>
-    <a href="tel:+79041852445" class="contact-link">+7 (904) 185-24-45</a>
-    <a href="tel:+79378850125" class="contact-link">+7 (937) 885-01-25</a>
+<div class="footer-total">
+    <span class="total-label">ИТОГО:</span>
+    <span class="price"><span id="res">2800</span> ₽</span>
 </div>
 
 <script>
     function calc() {
-        const t = document.getElementById('type').value;
-        const a = document.getElementById('area').value;
+        const t = parseFloat(document.getElementById('type').value);
+        const a = parseFloat(document.getElementById('area').value) || 0;
         let s = t * a;
         if(document.getElementById('f').checked) s += 500;
         if(document.getElementById('o').checked) s += 500;
         if(document.getElementById('w').checked) s += 400;
         document.getElementById('res').innerText = Math.round(s);
     }
+    calc();
 </script>
 
 </body>
